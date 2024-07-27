@@ -374,6 +374,7 @@
 "Assets/Brick Project Studio/_BPS Basic Assets/Common/Scripts and Animations/First Person Player/SceneSwitchGen.cs"
 "Assets/Brick Project Studio/_BPS Basic Assets/Common/Scripts and Animations/Windows/opencloseWindow.cs"
 "Assets/Brick Project Studio/_BPS Basic Assets/Common/Scripts and Animations/Windows/opencloseWindow1.cs"
+"Assets/ChangePerspective.cs"
 "Assets/DecalSystem/Plugins/DecalSystem/Decal.cs"
 "Assets/DecalSystem/Plugins/DecalSystem/Helpers/DecalBuilder.cs"
 "Assets/DecalSystem/Plugins/DecalSystem/Helpers/DecalUtils.cs"

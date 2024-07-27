@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SojaExiles
 
-{
     public class MouseLook : MonoBehaviour
     {
 
@@ -31,6 +29,21 @@ namespace SojaExiles
 
             transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
             playerBody.Rotate(Vector3.up * mouseX);
+
+        if (Input.GetKeyDown(KeyCode.Alpha1)) {
+            Debug.Log("1");
+         }
+        else if(Input.GetKeyDown(KeyCode.Alpha2)) {
+            Debug.Log("2");
         }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            Debug.Log("3");
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            Debug.Log("4");
+        }
+
     }
-}
+    }
