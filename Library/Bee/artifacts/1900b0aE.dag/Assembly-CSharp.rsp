@@ -375,6 +375,7 @@
 "Assets/Brick Project Studio/_BPS Basic Assets/Common/Scripts and Animations/Windows/opencloseWindow.cs"
 "Assets/Brick Project Studio/_BPS Basic Assets/Common/Scripts and Animations/Windows/opencloseWindow1.cs"
 "Assets/ChangePerspective.cs"
+"Assets/Cleaning.cs"
 "Assets/DecalSystem/Plugins/DecalSystem/Decal.cs"
 "Assets/DecalSystem/Plugins/DecalSystem/Helpers/DecalBuilder.cs"
 "Assets/DecalSystem/Plugins/DecalSystem/Helpers/DecalUtils.cs"
@@ -382,6 +383,7 @@
 "Assets/DecalSystem/Plugins/DecalSystem/Helpers/MeshUtils.cs"
 "Assets/DecalSystem/Plugins/DecalSystem/Helpers/PolygonUtils.cs"
 "Assets/DecalSystem/Plugins/DecalSystem/Helpers/TerrainUtils.cs"
+"Assets/Vacuum_clean.cs"
 -langversion:9.0
 /deterministic
 /optimize+

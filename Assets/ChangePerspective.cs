@@ -15,6 +15,7 @@ public class ChangePerspective : MonoBehaviour
     private Quaternion rotation4 = Quaternion.Euler(-15, 180, 0);
 
     float xRotation = 0f;
+    float yRotation = 0f;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,8 +31,12 @@ public class ChangePerspective : MonoBehaviour
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
-        transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-        player.Rotate(Vector3.up * mouseX);
+        yRotation += mouseX;
+        yRotation = Mathf.Clamp(yRotation, -90f, 90f);
+
+
+        transform.localRotation = Quaternion.Euler(xRotation, yRotation, 0f);
+        //transform.Rotate(Vector3.up * mouseX);
 
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
