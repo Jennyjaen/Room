@@ -7,7 +7,7 @@ public class Cleaning : MonoBehaviour
     public Vector3 pos= new Vector3(30, 20, 10);
     private Vector3 initPos = new Vector3(0, -5, 0);
     public Transform player;
-    public float moveSpeed = 0.1f;
+    public float moveSpeed = 0.001f;
 
     private Vector3 localPos;
     private GameObject[] tools;
@@ -31,8 +31,8 @@ public class Cleaning : MonoBehaviour
         toolPos = new Vector3[8];
         toolRot = new Quaternion[8];
 
-        toolPos[0] = new Vector3( 0, -1f,1.5f);
-        toolRot[0] = Quaternion.Euler(-30, 0, 0);
+        toolPos[0] = new Vector3( 0.3f, -7f,3f);
+        toolRot[0] = Quaternion.Euler(0, 0, 0);
 
         toolPos[1] = new Vector3(1, -1.7f,  0);
         toolRot[1] = Quaternion.Euler(-60, 0, 0);
@@ -61,10 +61,25 @@ public class Cleaning : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //move tool with keyboard ASDF
         if (Input.GetKey(KeyCode.A))
         {
             localPos.x -= moveSpeed;
         }
+        if (Input.GetKey(KeyCode.D))
+        {
+            localPos.x += moveSpeed;
+        }
+        if (Input.GetKey(KeyCode.W))
+        {
+            localPos.z += moveSpeed;
+        }
+        if (Input.GetKey(KeyCode.S))
+        {
+            localPos.z -= moveSpeed;
+        }
+
+
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             lastTool = currentTool;
@@ -85,11 +100,21 @@ public class Cleaning : MonoBehaviour
             }
             Toolvisible();
         }
-        tools[currentTool].transform.rotation = player.rotation * toolRot[currentTool];
+;
+        Vector3 direction = player.rotation * localPos;
+        direction.y = 0; //Consier only XZ plane
+        Vector3 normalized = direction.normalized;
+        Vector3 new_move = normalized *moveSpeed;
 
+        tools[currentTool].transform.rotation = player.rotation * toolRot[currentTool];
+        tools[currentTool].transform.localPosition += new_move;
+        localPos = new Vector3(0, 0, 0);
+
+        
     }
 
     void Toolvisible() {
+
         if (tools[currentTool] != null)
         {
             tools[currentTool].transform.localPosition = player.position + toolPos[currentTool];
