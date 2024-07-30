@@ -7,7 +7,7 @@ public class Cleaning : MonoBehaviour
     public Vector3 pos= new Vector3(30, 20, 10);
     private Vector3 initPos = new Vector3(0, -5, 0);
     public Transform player;
-    public float moveSpeed = 0.001f;
+    public float moveSpeed = 0.01f;
 
     private Vector3 localPos;
     private GameObject[] tools;
@@ -17,7 +17,7 @@ public class Cleaning : MonoBehaviour
     private int lastTool = 5;
 
     void Start(){
-
+        moveSpeed = 0.01f;
         tools = new GameObject[8];
         tools[0] = GameObject.Find("Vacuum");
         tools[1] = GameObject.Find("Squeegee");
@@ -63,22 +63,32 @@ public class Cleaning : MonoBehaviour
     {
         //move tool with keyboard ASDF
         if (Input.GetKey(KeyCode.A))
-        {
-            localPos.x -= moveSpeed;
+        {   if (transform.rotation.eulerAngles.y == 0) { localPos.x -= moveSpeed; }
+            if (transform.rotation.eulerAngles.y == 90) {localPos.z -= moveSpeed;}
+            if (transform.rotation.eulerAngles.y == 180) { localPos.x += moveSpeed; }
+            if (transform.rotation.eulerAngles.y == 270) { localPos.z += moveSpeed; }
         }
         if (Input.GetKey(KeyCode.D))
-        {
-            localPos.x += moveSpeed;
+        {   
+            if (transform.rotation.eulerAngles.y == 0) { localPos.x += moveSpeed; }
+            if (transform.rotation.eulerAngles.y == 90) { localPos.z += moveSpeed; }
+            if (transform.rotation.eulerAngles.y == 180) { localPos.x -= moveSpeed; }
+            if (transform.rotation.eulerAngles.y == 270) { localPos.z -= moveSpeed; }
         }
         if (Input.GetKey(KeyCode.W))
         {
-            localPos.z += moveSpeed;
+            if (transform.rotation.eulerAngles.y == 0) { localPos.y += moveSpeed; }
+            if (transform.rotation.eulerAngles.y == 90) { localPos.x -= moveSpeed; }
+            if (transform.rotation.eulerAngles.y == 180) { localPos.y += moveSpeed; }
+            if (transform.rotation.eulerAngles.y == 270) { localPos.y += moveSpeed; }
         }
         if (Input.GetKey(KeyCode.S))
         {
-            localPos.z -= moveSpeed;
+            if (transform.rotation.eulerAngles.y == 0) { localPos.y -= moveSpeed; }
+            if (transform.rotation.eulerAngles.y == 90) { localPos.x += moveSpeed; }
+            if (transform.rotation.eulerAngles.y == 180) { localPos.y -= moveSpeed; }
+            if (transform.rotation.eulerAngles.y == 270) { localPos.y -= moveSpeed; }
         }
-
 
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
@@ -101,11 +111,35 @@ public class Cleaning : MonoBehaviour
             Toolvisible();
         }
 ;
-        Vector3 direction = player.rotation * localPos;
-        direction.y = 0; //Consier only XZ plane
+
+        Vector3 rot_vector = player.rotation.eulerAngles;
+        rot_vector.x = 0;
+        Quaternion player_rotation = Quaternion.Euler(rot_vector);
+
+        Vector3 direction = player_rotation * localPos;
+        if(transform.rotation.eulerAngles.y == 90) {direction.y = 0; }//Consier only XZ plane 
+        if(transform.rotation.eulerAngles.y == 0) { direction.z = 0; }
+        if (transform.rotation.eulerAngles.y == 180) { direction.z = 0; }
+        if (transform.rotation.eulerAngles.y == 270) { 
+             //direction.z = 0;
+             }
+
         Vector3 normalized = direction.normalized;
         Vector3 new_move = normalized *moveSpeed;
+        if (direction.x == 0 && direction.y == 0 && direction.z == 0)
+        {
+            direction.x = 0;
+        }
+        else
+        {
+            Debug.Log("localPos " + localPos);
+            Debug.Log("player " + player.rotation.eulerAngles);
+            Debug.Log("direction " + direction);
+            Debug.Log(direction.x + "," + direction.y + "," + direction.z);
+            Debug.Log("normalized " + normalized);
+            Debug.Log(normalized.x + "," + normalized.y + "," + normalized.z);
 
+        }
         tools[currentTool].transform.rotation = player.rotation * toolRot[currentTool];
         tools[currentTool].transform.localPosition += new_move;
         localPos = new Vector3(0, 0, 0);

@@ -2317,9 +2317,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a9030d3ce87808489b027fdc06748d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pos: {x: 0, y: 0, z: 0}
+  pos: {x: 30, y: 20, z: 10}
   player: {fileID: 861878763}
-  moveSpeed: 0.1
+  moveSpeed: 0.01
 --- !u!1001 &1175871630
 PrefabInstance:
   m_ObjectHideFlags: 0

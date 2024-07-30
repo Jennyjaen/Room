@@ -19,7 +19,7 @@ public class ChangePerspective : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.lockState = CursorLockMode.Locked;
     }
 
     // Update is called once per frame
@@ -36,8 +36,7 @@ public class ChangePerspective : MonoBehaviour
 
 
         transform.localRotation = Quaternion.Euler(xRotation, yRotation, 0f);
-        //transform.Rotate(Vector3.up * mouseX);
-
+        
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
