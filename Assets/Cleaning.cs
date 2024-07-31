@@ -15,9 +15,13 @@ public class Cleaning : MonoBehaviour
     private Quaternion[] toolRot;
     private int currentTool = 0;
     private int lastTool = 5;
+    private Vector3 before_rot;
 
     void Start(){
         moveSpeed = 0.01f;
+        before_rot = player.transform.eulerAngles;
+
+
         tools = new GameObject[8];
         tools[0] = GameObject.Find("Vacuum");
         tools[1] = GameObject.Find("Squeegee");
@@ -31,28 +35,28 @@ public class Cleaning : MonoBehaviour
         toolPos = new Vector3[8];
         toolRot = new Quaternion[8];
 
-        toolPos[0] = new Vector3( 0.3f, -7f,3f);
+        toolPos[0] = new Vector3( 1.5f, -7f,2f);
         toolRot[0] = Quaternion.Euler(0, 0, 0);
 
-        toolPos[1] = new Vector3(1, -1.7f,  0);
+        toolPos[1] = new Vector3(-1.7f, -6f,  1.6f);
         toolRot[1] = Quaternion.Euler(-60, 0, 0);
 
-        toolPos[2] = new Vector3(1, -3.5f, 0);
+        toolPos[2] = new Vector3(1.5f, -9.5f, -0.5f );
         toolRot[2] = Quaternion.Euler(-150, 0, 0);
 
-        toolPos[3] = new Vector3(1, 0, 0);
+        toolPos[3] = new Vector3(1, -6.3f, 0);
         toolRot[3] = Quaternion.Euler(20, 0, 0);
 
-        toolPos[4] = new Vector3(0.2f, -0.2f, 0);
+        toolPos[4] = new Vector3(0.2f, -6.3f, 1);
         toolRot[4] = Quaternion.Euler(-200, 0, 0);
 
-        toolPos[5] = new Vector3(0.5f, -0.3f, 0);
+        toolPos[5] = new Vector3(0.5f, -7f, 0);
         toolRot[5] = Quaternion.Euler(-80, 0, 0);
 
-        toolPos[6] = new Vector3(0.5f, -1f, 0.5f);
+        toolPos[6] = new Vector3(3f, -7f, 0.5f);
         toolRot[6] = Quaternion.Euler(0, 0, 0);
 
-        toolPos[7] = new Vector3(0.5f, 3f, 0);
+        toolPos[7] = new Vector3(0.5f, -2f, 0);
         toolRot[7] = Quaternion.Euler(120, 0, 0);
 
         localPos = new Vector3(0, 0, 0);
@@ -120,27 +124,15 @@ public class Cleaning : MonoBehaviour
         if(transform.rotation.eulerAngles.y == 90) {direction.y = 0; }//Consier only XZ plane 
         if(transform.rotation.eulerAngles.y == 0) { direction.z = 0; }
         if (transform.rotation.eulerAngles.y == 180) { direction.z = 0; }
-        if (transform.rotation.eulerAngles.y == 270) { 
-             //direction.z = 0;
-             }
+        if (transform.rotation.eulerAngles.y == 270) { direction.z = 0; }
 
         Vector3 normalized = direction.normalized;
         Vector3 new_move = normalized *moveSpeed;
-        if (direction.x == 0 && direction.y == 0 && direction.z == 0)
-        {
-            direction.x = 0;
-        }
-        else
-        {
-            Debug.Log("localPos " + localPos);
-            Debug.Log("player " + player.rotation.eulerAngles);
-            Debug.Log("direction " + direction);
-            Debug.Log(direction.x + "," + direction.y + "," + direction.z);
-            Debug.Log("normalized " + normalized);
-            Debug.Log(normalized.x + "," + normalized.y + "," + normalized.z);
 
-        }
-        tools[currentTool].transform.rotation = player.rotation * toolRot[currentTool];
+        Debug.Log(player.transform.eulerAngles.x - before_rot.x);
+        tools[currentTool].transform.RotateAround(player.transform.position, player.up , player.transform.eulerAngles.y - before_rot.y );
+        tools[currentTool].transform.RotateAround(player.transform.position, player.right , player.transform.eulerAngles.x - before_rot.x);
+        before_rot = player.transform.eulerAngles;
         tools[currentTool].transform.localPosition += new_move;
         localPos = new Vector3(0, 0, 0);
 
@@ -151,7 +143,10 @@ public class Cleaning : MonoBehaviour
 
         if (tools[currentTool] != null)
         {
-            tools[currentTool].transform.localPosition = player.position + toolPos[currentTool];
+            tools[currentTool].transform.localPosition = toolPos[currentTool];
+            Debug.Log("now local position "+ tools[currentTool].transform.localPosition);
+            Debug.Log("local position" + toolPos[currentTool]);
+
             tools[currentTool].transform.rotation = player.rotation * toolRot[currentTool];
         }
         if (tools[lastTool] != null)
