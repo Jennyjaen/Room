@@ -35,8 +35,8 @@ public class Cleaning : MonoBehaviour
         toolPos = new Vector3[8];
         toolRot = new Quaternion[8];
 
-        toolPos[0] = new Vector3( 1.5f, -7f,2f);
-        toolRot[0] = Quaternion.Euler(0, 0, 0);
+        toolPos[0] = new Vector3( -0.3f, -5.2f,2f);
+        toolRot[0] = Quaternion.Euler(-60, 0, 0);
 
         toolPos[1] = new Vector3(-1.7f, -6f,  1.6f);
         toolRot[1] = Quaternion.Euler(-60, 0, 0);
@@ -44,8 +44,8 @@ public class Cleaning : MonoBehaviour
         toolPos[2] = new Vector3(1.5f, -9.5f, -0.5f );
         toolRot[2] = Quaternion.Euler(-150, 0, 0);
 
-        toolPos[3] = new Vector3(1, -6.3f, 0);
-        toolRot[3] = Quaternion.Euler(20, 0, 0);
+        toolPos[3] = new Vector3(0f, -5.1f, 2f);
+        toolRot[3] = Quaternion.Euler(0, 0, 0);
 
         toolPos[4] = new Vector3(0.2f, -6.3f, 1);
         toolRot[4] = Quaternion.Euler(-200, 0, 0);
@@ -144,9 +144,6 @@ public class Cleaning : MonoBehaviour
         if (tools[currentTool] != null)
         {
             tools[currentTool].transform.localPosition = toolPos[currentTool];
-            Debug.Log("now local position "+ tools[currentTool].transform.localPosition);
-            Debug.Log("local position" + toolPos[currentTool]);
-
             tools[currentTool].transform.rotation = player.rotation * toolRot[currentTool];
         }
         if (tools[lastTool] != null)

@@ -383,6 +383,7 @@
 "Assets/DecalSystem/Plugins/DecalSystem/Helpers/MeshUtils.cs"
 "Assets/DecalSystem/Plugins/DecalSystem/Helpers/PolygonUtils.cs"
 "Assets/DecalSystem/Plugins/DecalSystem/Helpers/TerrainUtils.cs"
+"Assets/Pickup.cs"
 "Assets/Vacuum_clean.cs"
 -langversion:9.0
 /deterministic
