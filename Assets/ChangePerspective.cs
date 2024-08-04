@@ -35,7 +35,7 @@ public class ChangePerspective : MonoBehaviour
         yRotation = Mathf.Clamp(yRotation, -90f, 90f);
 
 
-        transform.localRotation = Quaternion.Euler(xRotation, yRotation, 0f);
+        //transform.localRotation = Quaternion.Euler(xRotation, yRotation, 0f);
         
 
         if (Input.GetKeyDown(KeyCode.Alpha1))

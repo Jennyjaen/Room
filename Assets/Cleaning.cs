@@ -129,7 +129,6 @@ public class Cleaning : MonoBehaviour
         Vector3 normalized = direction.normalized;
         Vector3 new_move = normalized *moveSpeed;
 
-        Debug.Log(player.transform.eulerAngles.x - before_rot.x);
         tools[currentTool].transform.RotateAround(player.transform.position, player.up , player.transform.eulerAngles.y - before_rot.y );
         tools[currentTool].transform.RotateAround(player.transform.position, player.right , player.transform.eulerAngles.x - before_rot.x);
         before_rot = player.transform.eulerAngles;
@@ -144,6 +143,13 @@ public class Cleaning : MonoBehaviour
         if (tools[currentTool] != null)
         {
             tools[currentTool].transform.localPosition = toolPos[currentTool];
+            Vector3 clean_pos = tools[currentTool].transform.position;
+            if (transform.rotation.eulerAngles.y == 90) {
+                tools[currentTool].transform.position  = new Vector3(clean_pos.x, 0, clean_pos.z); }//Consier only XZ plane 
+            if (transform.rotation.eulerAngles.y == 0) {tools[currentTool].transform.position = new Vector3(clean_pos.x, clean_pos.y, 4.1f);}
+            if (transform.rotation.eulerAngles.y == 180) { tools[currentTool].transform.position = new Vector3(clean_pos.x, clean_pos.y, -4.5f); }
+            if (transform.rotation.eulerAngles.y == 270) { tools[currentTool].transform.position = new Vector3(clean_pos.x, clean_pos.y, 3.9f); }
+
             tools[currentTool].transform.rotation = player.rotation * toolRot[currentTool];
         }
         if (tools[lastTool] != null)

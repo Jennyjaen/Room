@@ -18,6 +18,10 @@ public class Pickup : MonoBehaviour
             isTriggered = true;
         }
     }
+    void OnTriggerExit(Collider col)
+    {
+        isTriggered = false;
+    }
     // Update is called once per frame
     void Update()
     {
