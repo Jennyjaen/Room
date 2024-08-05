@@ -22,42 +22,39 @@ public class Cleaning : MonoBehaviour
         before_rot = player.transform.eulerAngles;
 
 
-        tools = new GameObject[8];
+        tools = new GameObject[7];
         tools[0] = GameObject.Find("Vacuum");
-        tools[1] = GameObject.Find("Squeegee");
+        tools[1] = GameObject.Find("Roller");
         tools[2] = GameObject.Find("Broom");
         tools[3] = GameObject.Find("DustPan");
         tools[4] = GameObject.Find("Clip");
-        tools[5] = GameObject.Find("Mop");
-        tools[6] = GameObject.Find("Washer");
-        tools[7] = GameObject.Find("Hand");
+        tools[5] = GameObject.Find("Washer");
+        tools[6] = GameObject.Find("Hand");
 
-        toolPos = new Vector3[8];
-        toolRot = new Quaternion[8];
+        toolPos = new Vector3[7];
+        toolRot = new Quaternion[7];
 
-        toolPos[0] = new Vector3( -0.3f, -5.2f,2f);
-        toolRot[0] = Quaternion.Euler(-60, 0, 0);
+        toolPos[0] = new Vector3( -1.3f, -6.4f,1f);
+        toolRot[0] = Quaternion.Euler(0, 0, 0);
 
         toolPos[1] = new Vector3(-1.7f, -6f,  1.6f);
-        toolRot[1] = Quaternion.Euler(-60, 0, 0);
+        toolRot[1] = Quaternion.Euler(0, 0, 0);
 
-        toolPos[2] = new Vector3(1.5f, -9.5f, -0.5f );
+        toolPos[2] = new Vector3(-1.5f, -8.5f, 2.3f );
         toolRot[2] = Quaternion.Euler(-150, 0, 0);
 
-        toolPos[3] = new Vector3(0f, -5.1f, 2f);
+        toolPos[3] = new Vector3(-2f, -6f, 2f);
         toolRot[3] = Quaternion.Euler(0, 0, 0);
 
         toolPos[4] = new Vector3(0.2f, -6.3f, 1);
         toolRot[4] = Quaternion.Euler(-200, 0, 0);
 
-        toolPos[5] = new Vector3(0.5f, -7f, 0);
-        toolRot[5] = Quaternion.Euler(-80, 0, 0);
+        toolPos[5] = new Vector3(-1.8f, -4.5f, -1.2f);
+        toolRot[5] = Quaternion.Euler(0, 0, 0);
 
-        toolPos[6] = new Vector3(3f, -7f, 0.5f);
-        toolRot[6] = Quaternion.Euler(0, 0, 0);
+        toolPos[6] = new Vector3(0.5f, -7f, 0);
+        toolRot[6] = Quaternion.Euler(-80, 0, 0);
 
-        toolPos[7] = new Vector3(0.5f, -2f, 0);
-        toolRot[7] = Quaternion.Euler(120, 0, 0);
 
         localPos = new Vector3(0, 0, 0);
     }
@@ -68,28 +65,28 @@ public class Cleaning : MonoBehaviour
         //move tool with keyboard ASDF
         if (Input.GetKey(KeyCode.A))
         {   if (transform.rotation.eulerAngles.y == 0) { localPos.x -= moveSpeed; }
-            if (transform.rotation.eulerAngles.y == 90) {localPos.z -= moveSpeed;}
+            if (transform.rotation.eulerAngles.y == 90) {localPos.x -= moveSpeed;}
             if (transform.rotation.eulerAngles.y == 180) { localPos.x += moveSpeed; }
             if (transform.rotation.eulerAngles.y == 270) { localPos.z += moveSpeed; }
         }
         if (Input.GetKey(KeyCode.D))
         {   
             if (transform.rotation.eulerAngles.y == 0) { localPos.x += moveSpeed; }
-            if (transform.rotation.eulerAngles.y == 90) { localPos.z += moveSpeed; }
+            if (transform.rotation.eulerAngles.y == 90) { localPos.x += moveSpeed; }
             if (transform.rotation.eulerAngles.y == 180) { localPos.x -= moveSpeed; }
             if (transform.rotation.eulerAngles.y == 270) { localPos.z -= moveSpeed; }
         }
         if (Input.GetKey(KeyCode.W))
         {
             if (transform.rotation.eulerAngles.y == 0) { localPos.y += moveSpeed; }
-            if (transform.rotation.eulerAngles.y == 90) { localPos.x -= moveSpeed; }
+            if (transform.rotation.eulerAngles.y == 90) { localPos.z += moveSpeed; }
             if (transform.rotation.eulerAngles.y == 180) { localPos.y += moveSpeed; }
             if (transform.rotation.eulerAngles.y == 270) { localPos.y += moveSpeed; }
         }
         if (Input.GetKey(KeyCode.S))
         {
             if (transform.rotation.eulerAngles.y == 0) { localPos.y -= moveSpeed; }
-            if (transform.rotation.eulerAngles.y == 90) { localPos.x += moveSpeed; }
+            if (transform.rotation.eulerAngles.y == 90) { localPos.z -= moveSpeed; }
             if (transform.rotation.eulerAngles.y == 180) { localPos.y -= moveSpeed; }
             if (transform.rotation.eulerAngles.y == 270) { localPos.y -= moveSpeed; }
         }
@@ -129,10 +126,10 @@ public class Cleaning : MonoBehaviour
         Vector3 normalized = direction.normalized;
         Vector3 new_move = normalized *moveSpeed;
 
-        tools[currentTool].transform.RotateAround(player.transform.position, player.up , player.transform.eulerAngles.y - before_rot.y );
-        tools[currentTool].transform.RotateAround(player.transform.position, player.right , player.transform.eulerAngles.x - before_rot.x);
+        //tools[currentTool].transform.RotateAround(player.transform.position, new Vector3(0,1,0) , player.transform.eulerAngles.y - before_rot.y );
+        //tools[currentTool].transform.RotateAround(player.transform.position, player.right , player.transform.eulerAngles.x - before_rot.x);
         before_rot = player.transform.eulerAngles;
-        tools[currentTool].transform.localPosition += new_move;
+        tools[currentTool].transform.position += new_move;
         localPos = new Vector3(0, 0, 0);
 
         
@@ -144,13 +141,31 @@ public class Cleaning : MonoBehaviour
         {
             tools[currentTool].transform.localPosition = toolPos[currentTool];
             Vector3 clean_pos = tools[currentTool].transform.position;
-            if (transform.rotation.eulerAngles.y == 90) {
-                tools[currentTool].transform.position  = new Vector3(clean_pos.x, 0, clean_pos.z); }//Consier only XZ plane 
-            if (transform.rotation.eulerAngles.y == 0) {tools[currentTool].transform.position = new Vector3(clean_pos.x, clean_pos.y, 4.1f);}
-            if (transform.rotation.eulerAngles.y == 180) { tools[currentTool].transform.position = new Vector3(clean_pos.x, clean_pos.y, -4.5f); }
-            if (transform.rotation.eulerAngles.y == 270) { tools[currentTool].transform.position = new Vector3(clean_pos.x, clean_pos.y, 3.9f); }
 
-            tools[currentTool].transform.rotation = player.rotation * toolRot[currentTool];
+            if (transform.rotation.eulerAngles.y == 90)
+            {
+                Vector3 basic_vec = new Vector3(0, 90, 0);
+                Quaternion basic_rot = Quaternion.Euler(basic_vec);
+                tools[currentTool].transform.rotation = basic_rot * toolRot[currentTool];
+            }
+                //tools[currentTool].transform.position  = new Vector3(clean_pos.x, 0, clean_pos.z); }//Consier only XZ plane 
+            if (transform.rotation.eulerAngles.y == 0) {
+                Vector3 basic_vec = new Vector3(0, 0, 0);
+                Quaternion basic_rot = Quaternion.Euler(basic_vec);
+                tools[currentTool].transform.rotation = basic_rot * toolRot[currentTool];
+            }
+            if (transform.rotation.eulerAngles.y == 180) {
+                Vector3 basic_vec = new Vector3(0, 180, 0);
+                Quaternion basic_rot = Quaternion.Euler(basic_vec);
+                tools[currentTool].transform.rotation = basic_rot * toolRot[currentTool];
+            }
+            if (transform.rotation.eulerAngles.y == 270) {
+                Vector3 basic_vec = new Vector3(0, 270, 0);
+                Quaternion basic_rot = Quaternion.Euler(basic_vec);
+                tools[currentTool].transform.rotation = basic_rot * toolRot[currentTool];
+            }
+
+            //tools[currentTool].transform.rotation = player.rotation * toolRot[currentTool];
         }
         if (tools[lastTool] != null)
         {

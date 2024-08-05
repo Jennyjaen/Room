@@ -374,6 +374,7 @@
 "Assets/Brick Project Studio/_BPS Basic Assets/Common/Scripts and Animations/First Person Player/SceneSwitchGen.cs"
 "Assets/Brick Project Studio/_BPS Basic Assets/Common/Scripts and Animations/Windows/opencloseWindow.cs"
 "Assets/Brick Project Studio/_BPS Basic Assets/Common/Scripts and Animations/Windows/opencloseWindow1.cs"
+"Assets/broom_clean.cs"
 "Assets/ChangePerspective.cs"
 "Assets/Cleaning.cs"
 "Assets/DecalSystem/Plugins/DecalSystem/Decal.cs"
@@ -386,6 +387,8 @@
 "Assets/Pickup.cs"
 "Assets/Squee_clean.cs"
 "Assets/Vacuum_clean.cs"
+"Assets/Vacuum_move.cs"
+"Assets/wash_clean.cs"
 -langversion:9.0
 /deterministic
 /optimize+

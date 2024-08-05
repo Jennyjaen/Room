@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Trash
   - Stain
+  - Bed
+  - Hamper
+  - Shelf
   layers:
   - Default
   - TransparentFX
