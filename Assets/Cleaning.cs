@@ -37,20 +37,20 @@ public class Cleaning : MonoBehaviour
         toolPos[0] = new Vector3( -1.3f, -6.4f,1f);
         toolRot[0] = Quaternion.Euler(0, 0, 0);
 
-        toolPos[1] = new Vector3(-1.7f, -6f,  1.6f);
+        toolPos[1] = new Vector3(-1.7f, -6f,  4.2f);
         toolRot[1] = Quaternion.Euler(0, 0, 0);
 
-        toolPos[2] = new Vector3(-1.5f, -8.5f, 2.3f );
+        toolPos[2] = new Vector3(-1.5f, -8.5f, 1.5f );
         toolRot[2] = Quaternion.Euler(-150, 0, 0);
 
         toolPos[3] = new Vector3(-2f, -6f, 2f);
         toolRot[3] = Quaternion.Euler(0, 0, 0);
 
-        toolPos[4] = new Vector3(0.2f, -6.3f, 1);
-        toolRot[4] = Quaternion.Euler(-200, 0, 0);
+        toolPos[4] = new Vector3(-1.8f, -5.8f, 3f);
+        toolRot[4] = Quaternion.Euler(0, 0, 0);
 
-        toolPos[5] = new Vector3(-1.8f, -4.5f, -1.2f);
-        toolRot[5] = Quaternion.Euler(0, 0, 0);
+        toolPos[5] = new Vector3(-1.8f, -5f, 2.6f);
+        toolRot[5] = Quaternion.Euler(-10, 0, 0);
 
         toolPos[6] = new Vector3(0.5f, -7f, 0);
         toolRot[6] = Quaternion.Euler(-80, 0, 0);
@@ -65,28 +65,28 @@ public class Cleaning : MonoBehaviour
         //move tool with keyboard ASDF
         if (Input.GetKey(KeyCode.A))
         {   if (transform.rotation.eulerAngles.y == 0) { localPos.x -= moveSpeed; }
-            if (transform.rotation.eulerAngles.y == 90) {localPos.x -= moveSpeed;}
+            if (transform.rotation.eulerAngles.y == 90) {localPos.z += moveSpeed;}
             if (transform.rotation.eulerAngles.y == 180) { localPos.x += moveSpeed; }
-            if (transform.rotation.eulerAngles.y == 270) { localPos.z += moveSpeed; }
+            if (transform.rotation.eulerAngles.y == 270) { localPos.z -= moveSpeed; }
         }
         if (Input.GetKey(KeyCode.D))
         {   
             if (transform.rotation.eulerAngles.y == 0) { localPos.x += moveSpeed; }
-            if (transform.rotation.eulerAngles.y == 90) { localPos.x += moveSpeed; }
+            if (transform.rotation.eulerAngles.y == 90) { localPos.z -= moveSpeed; }
             if (transform.rotation.eulerAngles.y == 180) { localPos.x -= moveSpeed; }
-            if (transform.rotation.eulerAngles.y == 270) { localPos.z -= moveSpeed; }
+            if (transform.rotation.eulerAngles.y == 270) { localPos.z += moveSpeed; }
         }
         if (Input.GetKey(KeyCode.W))
         {
             if (transform.rotation.eulerAngles.y == 0) { localPos.y += moveSpeed; }
-            if (transform.rotation.eulerAngles.y == 90) { localPos.z += moveSpeed; }
+            if (transform.rotation.eulerAngles.y == 90) { localPos.x += moveSpeed; }
             if (transform.rotation.eulerAngles.y == 180) { localPos.y += moveSpeed; }
             if (transform.rotation.eulerAngles.y == 270) { localPos.y += moveSpeed; }
         }
         if (Input.GetKey(KeyCode.S))
         {
             if (transform.rotation.eulerAngles.y == 0) { localPos.y -= moveSpeed; }
-            if (transform.rotation.eulerAngles.y == 90) { localPos.z -= moveSpeed; }
+            if (transform.rotation.eulerAngles.y == 90) { localPos.x -= moveSpeed; }
             if (transform.rotation.eulerAngles.y == 180) { localPos.y -= moveSpeed; }
             if (transform.rotation.eulerAngles.y == 270) { localPos.y -= moveSpeed; }
         }
@@ -121,7 +121,7 @@ public class Cleaning : MonoBehaviour
         if(transform.rotation.eulerAngles.y == 90) {direction.y = 0; }//Consier only XZ plane 
         if(transform.rotation.eulerAngles.y == 0) { direction.z = 0; }
         if (transform.rotation.eulerAngles.y == 180) { direction.z = 0; }
-        if (transform.rotation.eulerAngles.y == 270) { direction.z = 0; }
+        if (transform.rotation.eulerAngles.y == 270) { direction.x = 0; }
 
         Vector3 normalized = direction.normalized;
         Vector3 new_move = normalized *moveSpeed;
@@ -129,7 +129,7 @@ public class Cleaning : MonoBehaviour
         //tools[currentTool].transform.RotateAround(player.transform.position, new Vector3(0,1,0) , player.transform.eulerAngles.y - before_rot.y );
         //tools[currentTool].transform.RotateAround(player.transform.position, player.right , player.transform.eulerAngles.x - before_rot.x);
         before_rot = player.transform.eulerAngles;
-        tools[currentTool].transform.position += new_move;
+        tools[currentTool].transform.position += localPos;
         localPos = new Vector3(0, 0, 0);
 
         

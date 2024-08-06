@@ -15,12 +15,14 @@ public class Vacuum_move : MonoBehaviour
 
         if (col.CompareTag("Bed"))
         {
+            Debug.Log("Bed");
             Vector3 currentPos = transform.position;
             currentPos.y =1f;
             transform.position = currentPos;
         }
         if (col.CompareTag("Hamper"))
         {
+            Debug.Log("Hamper");
             Vector3 currentPos = transform.position;
             currentPos.y = 1.6f;
             transform.position = currentPos;

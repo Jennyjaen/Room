@@ -17,10 +17,31 @@ public class Pickup : MonoBehaviour
             target = col.gameObject;
             isTriggered = true;
         }
+        if (col.CompareTag("Bed"))
+        {
+            Debug.Log("Bed");
+            Vector3 currentPos = transform.position;
+            currentPos.y = 1.2f;
+            transform.position = currentPos;
+        }
+        if (col.CompareTag("Hamper"))
+        {
+            Debug.Log("Hamper");
+            Vector3 currentPos = transform.position;
+            currentPos.y = 1.8f;
+            transform.position = currentPos;
+
+        }
     }
     void OnTriggerExit(Collider col)
     {
         isTriggered = false;
+        if (col.CompareTag("Bed") || col.CompareTag("Hamper"))
+        {
+            Vector3 currentPos = transform.position;
+            currentPos.y = 0.2f;
+            transform.position = currentPos;
+        }
     }
     // Update is called once per frame
     void Update()
