@@ -44,8 +44,8 @@ public class Clip_clean : MonoBehaviour
         }
         if (isScalingDown && target != null) {
             Debug.Log("open");
-            Clip_L.transform.rotation = Quaternion.RotateTowards(Clip_L.transform.rotation, Quaternion.Euler(0, -15, 0), 0.3f * Time.deltaTime);
-            Clip_R.transform.rotation = Quaternion.RotateTowards(Clip_R.transform.rotation, Quaternion.Euler(0, 15 , 0), 0.3f * Time.deltaTime);
+            Clip_L.transform.rotation = Quaternion.RotateTowards(Clip_L.transform.rotation, Quaternion.Euler(0, -15, 0), 3f * Time.deltaTime);
+            Clip_R.transform.rotation = Quaternion.RotateTowards(Clip_R.transform.rotation, Quaternion.Euler(0, 15 , 0), 3f * Time.deltaTime);
         }
     }
 }

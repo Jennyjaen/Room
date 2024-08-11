@@ -9,6 +9,12 @@ public class Pickup : MonoBehaviour
     private bool isTriggered = false;
     private bool isScalingDown = false;
     private float scaleDown = 10f;
+    private Cleaning cleaning;
+
+    void Start()
+    {
+        cleaning = GetComponentInParent<Cleaning>();
+    }
 
     void OnTriggerEnter(Collider col)
     {
@@ -32,7 +38,22 @@ public class Pickup : MonoBehaviour
             transform.position = currentPos;
 
         }
+        if (col.CompareTag("Wall"))
+        {
+            cleaning.StopMovement();
+            Debug.Log("wall collision");
+        }
     }
+
+    void OnTriggerStay(Collider col)
+    {
+        if (col.CompareTag("Wall"))
+        {
+            cleaning.StopMovement();
+            Debug.Log("wall collision ing");
+        }
+    }
+
     void OnTriggerExit(Collider col)
     {
         isTriggered = false;
@@ -41,6 +62,10 @@ public class Pickup : MonoBehaviour
             Vector3 currentPos = transform.position;
             currentPos.y = 0.2f;
             transform.position = currentPos;
+        }
+        if (col.CompareTag("Wall")) {
+            cleaning.EnableMovement();
+            Debug.Log("Wall bye");
         }
     }
     // Update is called once per frame

@@ -9,6 +9,7 @@ TagManager:
   - Bed
   - Hamper
   - Shelf
+  - Wall
   layers:
   - Default
   - TransparentFX

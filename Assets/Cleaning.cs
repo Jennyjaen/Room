@@ -16,11 +16,13 @@ public class Cleaning : MonoBehaviour
     private int currentTool = 0;
     private int lastTool = 5;
     private Vector3 before_rot;
+    private bool CanMove = true;
+    private Vector3 ValidMove;
 
     void Start(){
         moveSpeed = 0.01f;
         before_rot = player.transform.eulerAngles;
-
+        ValidMove = new Vector3(0, 0, 0);
 
         tools = new GameObject[7];
         tools[0] = GameObject.Find("Vacuum");
@@ -129,11 +131,30 @@ public class Cleaning : MonoBehaviour
         //tools[currentTool].transform.RotateAround(player.transform.position, new Vector3(0,1,0) , player.transform.eulerAngles.y - before_rot.y );
         //tools[currentTool].transform.RotateAround(player.transform.position, player.right , player.transform.eulerAngles.x - before_rot.x);
         before_rot = player.transform.eulerAngles;
+        //Debug.Log(localPos);
         tools[currentTool].transform.position += localPos;
+        if(localPos.x !=0 || localPos.y !=0 || localPos.z != 0)
+        {
+            ValidMove = localPos;
+            Debug.Log("Valid update " + ValidMove);
+        }
+        if(!CanMove && ValidMove != new Vector3(0, 0, 0))
+        {
+            tools[currentTool].transform.position -= ValidMove;
+            Debug.Log("can not move" + ValidMove);
+            //nMove = true;
+        }
         localPos = new Vector3(0, 0, 0);
 
         
     }
+
+    public void StopMovement()
+    {
+        CanMove = false;
+    }
+
+    public void EnableMovement() { CanMove = true; }
 
     void Toolvisible() {
 
