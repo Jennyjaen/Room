@@ -29,7 +29,7 @@ public class SerialController : MonoBehaviour
     public string portName = "COM3";
 
     [Tooltip("Baud rate that the serial device is using to transmit data.")]
-    public int baudRate = 9600;
+    public int baudRate = 921600;
 
     [Tooltip("Reference to an scene object that will receive the events of connection, " +
              "disconnection and the messages from the serial device.")]
@@ -42,6 +42,9 @@ public class SerialController : MonoBehaviour
     [Tooltip("Maximum number of unread data messages in the queue. " +
              "New messages will be discarded.")]
     public int maxUnreadMessages = 1;
+
+    public float x;
+    public float y;
 
     // Constants used to mark the start and end of a connection. There is no
     // way you can generate clashing messages from your serial device, as I
@@ -119,11 +122,30 @@ public class SerialController : MonoBehaviour
 
         // Check if the message is plain data or a connect/disconnect event.
         if (ReferenceEquals(message, SERIAL_DEVICE_CONNECTED))
-            messageListener.SendMessage("OnConnectionEvent", true);
+            //messageListener.SendMessage("OnConnectionEvent", true);
+            Debug.Log("connected");
         else if (ReferenceEquals(message, SERIAL_DEVICE_DISCONNECTED))
-            messageListener.SendMessage("OnConnectionEvent", false);
+            //messageListener.SendMessage("OnConnectionEvent", false);
+            Debug.Log("disconnected");
         else
-            messageListener.SendMessage("OnMessageArrived", message);
+            ProcessMessage(message);
+            //Debug.Log(message);
+            //messageListener.SendMessage("OnMessageArrived", message);
+    }
+
+    void ProcessMessage(string message)
+    {
+        string[] values = message.Split(',');
+        if (values.Length == 2)
+        {
+            if (!float.TryParse(values[0], out x)){
+                x = 0;
+            }
+            if(!float.TryParse(values[1], out y))
+            {
+                y = 0;
+            }
+        }
     }
 
     // ------------------------------------------------------------------------

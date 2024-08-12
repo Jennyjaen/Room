@@ -8,6 +8,7 @@ public class Cleaning : MonoBehaviour
     private Vector3 initPos = new Vector3(0, -5, 0);
     public Transform player;
     public float moveSpeed = 0.01f;
+    public SerialController serial;
 
     private Vector3 localPos;
     private GameObject[] tools;
@@ -23,6 +24,8 @@ public class Cleaning : MonoBehaviour
         moveSpeed = 0.01f;
         before_rot = player.transform.eulerAngles;
         ValidMove = new Vector3(0, 0, 0);
+        serial = FindObjectOfType<SerialController>();
+
 
         tools = new GameObject[7];
         tools[0] = GameObject.Find("Vacuum");
@@ -64,6 +67,31 @@ public class Cleaning : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(serial.x + " " + serial.y);
+        if(serial.x != 0 || serial.y != 0)
+        {
+            if (transform.rotation.eulerAngles.y == 0)
+            {
+                localPos.x += (serial.x / 1000);
+                localPos.y -= (serial.y / 1000);
+            }
+            if (transform.rotation.eulerAngles.y == 90)
+            {
+                localPos.z -= (serial.x / 1000);
+                localPos.x -= (serial.y / 1000);
+            }
+            if (transform.rotation.eulerAngles.y == 180)
+            {
+                localPos.x -= (serial.x / 1000);
+                localPos.y -= (serial.y / 1000);
+            }
+            if (transform.rotation.eulerAngles.y == 270)
+            {
+                localPos.z += (serial.x / 1000);
+                localPos.y -= (serial.y / 1000);
+            }
+
+        }
         //move tool with keyboard ASDF
         if (Input.GetKey(KeyCode.A))
         {   if (transform.rotation.eulerAngles.y == 0) { localPos.x -= moveSpeed; }
@@ -160,6 +188,7 @@ public class Cleaning : MonoBehaviour
 
         if (tools[currentTool] != null)
         {
+            serial.messageListener = tools[currentTool];
             tools[currentTool].transform.localPosition = toolPos[currentTool];
             Vector3 clean_pos = tools[currentTool].transform.position;
 
